@@ -1108,515 +1108,515 @@ elif sidebar_option == "Matchup Analysis":
     
 elif sidebar_option == "Match by Match Analysis":
     st.sidebar.title("Match by Match Analysis")
-#     match_id = st.sidebar.selectbox("Select Match ID", options=pdf["match_id"].unique())
-#     match_data = pdf[pdf["match_id"] == match_id].iloc[0]
-#     batting_team = match_data["batting_team"]
-#     bowling_team = match_data["bowling_team"]
-#     venue = match_data["venue"]
-#     start_date = match_data["start_date"]
+    match_id = st.sidebar.selectbox("Select Match ID", options=pdf["match_id"].unique())
+    match_data = pdf[pdf["match_id"] == match_id].iloc[0]
+    batting_team = match_data["batting_team"]
+    bowling_team = match_data["bowling_team"]
+    venue = match_data["venue"]
+    start_date = match_data["start_date"]
 
-#     st.write(f"**{batting_team}** vs **{bowling_team}**")
-#     st.write(f"**Venue:** {venue}")
-#     st.write(f"**Start Date:** {start_date}")
-#     temp_df = pdf[pdf["match_id"] == match_id]
+    st.write(f"**{batting_team}** vs **{bowling_team}**")
+    st.write(f"**Venue:** {venue}")
+    st.write(f"**Start Date:** {start_date}")
+    temp_df = pdf[pdf["match_id"] == match_id]
 
-#     # Main section - Career Stat Type selection
-#     option = st.selectbox("Select Analysis Dimension", ("Batsman Analysis", "Bowler Analysis"))
+    # Main section - Career Stat Type selection
+    option = st.selectbox("Select Analysis Dimension", ("Batsman Analysis", "Bowler Analysis"))
 
-#     # Batsman Analysis
-#     if option == "Batsman Analysis":
-#         # Step 1: Select a batsman
-#         batsman_selected = st.selectbox("Select Batsman", options=temp_df["batsman"].unique())
+    # Batsman Analysis
+    if option == "Batsman Analysis":
+        # Step 1: Select a batsman
+        batsman_selected = st.selectbox("Select Batsman", options=temp_df["batsman"].unique())
         
-#         # Filter the data for the selected batsman
-#         filtered_df = temp_df[temp_df["batsman"] == batsman_selected]
+        # Filter the data for the selected batsman
+        filtered_df = temp_df[temp_df["batsman"] == batsman_selected]
         
-#         # Step 2: Select a bowler with 'All' option included
-#         bowler_options = ["All"] + filtered_df["bowler"].unique().tolist()
-#         bowler_selected = st.selectbox("Select Bowler", options=bowler_options)
-#         # Further filter based on the bowler selection
-#         if bowler_selected == "All":
-#             final_df = filtered_df  # Only filter by batsman
-#         else:
-#             final_df = filtered_df[filtered_df["bowler"] == bowler_selected]  # Filter by both batsman and bowler
-#         total_runs = filtered_df["batsman_runs"].sum()
-#         total_balls = filtered_df["ballfaced"].sum()  # Assuming this column counts each ball faced
-#         total_dismissals = filtered_df["is_wicket"].sum()  # Assuming this indicates dismissals for the batsman
-#         strike_rate = (total_runs / total_balls) * 100 
-#         avg_runs = total_runs / total_dismissals 
+        # Step 2: Select a bowler with 'All' option included
+        bowler_options = ["All"] + filtered_df["bowler"].unique().tolist()
+        bowler_selected = st.selectbox("Select Bowler", options=bowler_options)
+        # Further filter based on the bowler selection
+        if bowler_selected == "All":
+            final_df = filtered_df  # Only filter by batsman
+        else:
+            final_df = filtered_df[filtered_df["bowler"] == bowler_selected]  # Filter by both batsman and bowler
+        total_runs = filtered_df["batsman_runs"].sum()
+        total_balls = filtered_df["ballfaced"].sum()  # Assuming this column counts each ball faced
+        total_dismissals = filtered_df["is_wicket"].sum()  # Assuming this indicates dismissals for the batsman
+        strike_rate = (total_runs / total_balls) * 100 
+        avg_runs = total_runs / total_dismissals 
 
-#         # Count for each scoring shot type based on provided columns
-#         total_zeros = filtered_df["is_dot"].sum()
-#         total_ones = filtered_df["is_one"].sum()
-#         total_twos = filtered_df["is_two"].sum()
-#         total_threes = filtered_df["is_three"].sum()
-#         total_fours = filtered_df["is_four"].sum()
-#         total_sixes = filtered_df["is_six"].sum()
+        # Count for each scoring shot type based on provided columns
+        total_zeros = filtered_df["is_dot"].sum()
+        total_ones = filtered_df["is_one"].sum()
+        total_twos = filtered_df["is_two"].sum()
+        total_threes = filtered_df["is_three"].sum()
+        total_fours = filtered_df["is_four"].sum()
+        total_sixes = filtered_df["is_six"].sum()
 
-#         # Total balls to calculate percentages
-#         total_balls_for_percentage = total_zeros + total_ones + total_twos + total_threes + total_fours + total_sixes
-#         percentages = {
-#             "0s": (total_zeros / total_balls_for_percentage * 100) if total_balls_for_percentage > 0 else 0,
-#             "1s": (total_ones / total_balls_for_percentage * 100) if total_balls_for_percentage > 0 else 0,
-#             "2s": (total_twos / total_balls_for_percentage * 100) if total_balls_for_percentage > 0 else 0,
-#             "3s": (total_threes / total_balls_for_percentage * 100) if total_balls_for_percentage > 0 else 0,
-#             "4s": (total_fours / total_balls_for_percentage * 100) if total_balls_for_percentage > 0 else 0,
-#             "6s": (total_sixes / total_balls_for_percentage * 100) if total_balls_for_percentage > 0 else 0,
-#         }
+        # Total balls to calculate percentages
+        total_balls_for_percentage = total_zeros + total_ones + total_twos + total_threes + total_fours + total_sixes
+        percentages = {
+            "0s": (total_zeros / total_balls_for_percentage * 100) if total_balls_for_percentage > 0 else 0,
+            "1s": (total_ones / total_balls_for_percentage * 100) if total_balls_for_percentage > 0 else 0,
+            "2s": (total_twos / total_balls_for_percentage * 100) if total_balls_for_percentage > 0 else 0,
+            "3s": (total_threes / total_balls_for_percentage * 100) if total_balls_for_percentage > 0 else 0,
+            "4s": (total_fours / total_balls_for_percentage * 100) if total_balls_for_percentage > 0 else 0,
+            "6s": (total_sixes / total_balls_for_percentage * 100) if total_balls_for_percentage > 0 else 0,
+        }
 
-#         # Display stats summary
-#         st.write(f"**Analysis for Batsman: {batsman_selected}**")
-#         if bowler_selected == "All":
-#             st.write("**Against All Bowlers**")
-#         else:
-#             st.write(f"**Against Bowler: {bowler_selected}**")
+        # Display stats summary
+        st.write(f"**Analysis for Batsman: {batsman_selected}**")
+        if bowler_selected == "All":
+            st.write("**Against All Bowlers**")
+        else:
+            st.write(f"**Against Bowler: {bowler_selected}**")
 
-#         col1, col2 = st.columns(2)
-#         # Step 1: Select a batsman        
-#         # Filter the data for the selected batsman            
-#         # Calculate statistics
-#         total_runs = final_df["batsman_runs"].sum()
-#         total_balls = final_df["ballfaced"].sum()
-#         total_dismissals = final_df["is_wicket"].sum()
-#         strike_rate = (total_runs / total_balls) * 100 if total_balls > 0 else 0
-#         avg_runs = total_runs / total_dismissals if total_dismissals > 0 else total_runs
+        col1, col2 = st.columns(2)
+        # Step 1: Select a batsman        
+        # Filter the data for the selected batsman            
+        # Calculate statistics
+        total_runs = final_df["batsman_runs"].sum()
+        total_balls = final_df["ballfaced"].sum()
+        total_dismissals = final_df["is_wicket"].sum()
+        strike_rate = (total_runs / total_balls) * 100 if total_balls > 0 else 0
+        avg_runs = total_runs / total_dismissals if total_dismissals > 0 else total_runs
 
-#         # Count for each scoring shot type
-#         total_zeros = final_df["is_dot"].sum()
-#         total_ones = final_df["is_one"].sum()
-#         total_twos = final_df["is_two"].sum()
-#         total_threes = final_df["is_three"].sum()
-#         total_fours = final_df["is_four"].sum()
-#         total_sixes = final_df["is_six"].sum()
+        # Count for each scoring shot type
+        total_zeros = final_df["is_dot"].sum()
+        total_ones = final_df["is_one"].sum()
+        total_twos = final_df["is_two"].sum()
+        total_threes = final_df["is_three"].sum()
+        total_fours = final_df["is_four"].sum()
+        total_sixes = final_df["is_six"].sum()
 
-#         # Calculate percentages
-#         total_balls_for_percentage = total_zeros + total_ones + total_twos + total_threes + total_fours + total_sixes
+        # Calculate percentages
+        total_balls_for_percentage = total_zeros + total_ones + total_twos + total_threes + total_fours + total_sixes
         
-#         def calc_percentage(value, total):
-#             return f"{(value / total * 100):.1f}%" if total > 0 else "0%"
-#         percent_zeros = (total_zeros / total_balls) * 100 if total_balls > 0 else 0
-#         percent_ones = (total_ones / total_balls) * 100 if total_balls > 0 else 0
-#         percent_twos = (total_twos / total_balls) * 100 if total_balls > 0 else 0
-#         percent_threes = (total_threes / total_balls) * 100 if total_balls > 0 else 0
-#         percent_fours = (total_fours / total_balls) * 100 if total_balls > 0 else 0
-#         percent_sixes = (total_sixes / total_balls) * 100 if total_balls > 0 else 0
+        def calc_percentage(value, total):
+            return f"{(value / total * 100):.1f}%" if total > 0 else "0%"
+        percent_zeros = (total_zeros / total_balls) * 100 if total_balls > 0 else 0
+        percent_ones = (total_ones / total_balls) * 100 if total_balls > 0 else 0
+        percent_twos = (total_twos / total_balls) * 100 if total_balls > 0 else 0
+        percent_threes = (total_threes / total_balls) * 100 if total_balls > 0 else 0
+        percent_fours = (total_fours / total_balls) * 100 if total_balls > 0 else 0
+        percent_sixes = (total_sixes / total_balls) * 100 if total_balls > 0 else 0
 
-#         with st.container():
-#             # Create a compact stats box with a grey background and padding
-#             st.markdown(
-#                 f"""
-#                 <style>
-#                     .stats-box {{
-#                         background-color: #f0f0f0;
-#                         padding: 15px;
-#                         border-radius: 10px;
-#                         font-family: Arial, sans-serif;
-#                         color: #333;
-#                     }}
-#                     .stats-title {{
-#                         font-size: 20px;
-#                         font-weight: bold;
-#                         margin-bottom: 10px;
-#                     }}
-#                     .stats-details {{
-#                         font-size: 16px;
-#                         font-weight: bold;
-#                     }}
-#                     .compact-line {{
-#                         font-size: 14px;
-#                     }}
-#                     .bold {{
-#                         font-weight: bold;
-#                     }}
-#                 </style>
-#                 """, unsafe_allow_html=True)
-#             st.markdown(f"""
-#                 <div class="stats-box">
-#                     <div class="stats-title">{batsman_selected} {f'vs {bowler_selected}' if bowler_selected != 'All' else '(All)'}</div>
-#                     <div class="stats-details">
-#                         Runs: {int(total_runs)}  
-#                     </div>
-#                     <div class="stats-details">
-#                         Balls: {int(total_balls)}  
-#                     </div>
-#                     <div class="stats-details">
-#                         Wickets: {int(total_dismissals)} 🟥
-#                     </div>
-#                     <div class="stats-details">
-#                         S/R: {strike_rate:.1f}  
-#                     </div>
-#                     <div class="stats-details">
-#                         Avg: {avg_runs:.1f}
-#                     </div>
-#                     <div class="compact-line">
-#                         <span class="bold">0s:</span> <span class="white-square"></span> ({percent_zeros:.1f}%) | 
-#                         <span class="bold">1s:</span> {int(total_ones)} 🟩 ({percent_ones:.1f}%) | 
-#                         <span class="bold">2s:</span> {int(total_twos)} 🟦 ({percent_twos:.1f}%) | 
-#                         <span class="bold">3s:</span> {int(total_threes)} 🟪 ({percent_threes:.1f}%) | 
-#                         <span class="bold">4s:</span> {int(total_fours)} 🟨 ({percent_fours:.1f}%) | 
-#                         <span class="bold">6s:</span> {int(total_sixes)} 🟫 ({percent_sixes:.1f}%)
-#                     </div>
-#                 </div>
-#             """, unsafe_allow_html=True)
-#         @st.cache_data
-#         def get_sector_angle(zone, batting_style, offset=0):
-#             base_angles = {
-#                 1: 45,   # Third Man
-#                 2: 90,   # Point
-#                 3: 135,  # Covers
-#                 4: 180,  # Mid-off
-#                 5: 225,  # Mid-on
-#                 6: 270,  # Mid-wicket
-#                 7: 315,  # Square leg
-#                 8: 360   # Fine leg
-#             }
-#             angle = base_angles[zone] + offset
-#             if batting_style == 'LHB':
-#                 angle = (180 + angle) % 360
-#             return np.radians(angle)
-#         @st.cache_data
-#         def get_line_properties(runs):
-#             properties = {
-#                 1: {'color': 'darkgreen', 'length': 0.5, 'width': 2.5,'alpha':1},    
-#                 2: {'color': 'darkblue', 'length': 0.65, 'width': 2.5},    
-#                 3: {'color': 'darkviolet', 'length': 0.8, 'width': 2.5},   
-#                 4: {'color': 'goldenrod', 'length': 1.0, 'width': 3},     
-#                 6: {'color': 'maroon', 'length': 1.1, 'width': 4}     
-#             }
-#             return properties.get(runs, {'color': 'white', 'length': 0.4, 'width': 1,'alpha':1})
-#         @st.cache_data
-#         def draw_cricket_field_with_wagon_wheel(final_df):
-#             fig, ax = plt.subplots(figsize=(10, 10))
-#             ax.set_aspect('equal')
-#             ax.axis('off')
+        with st.container():
+            # Create a compact stats box with a grey background and padding
+            st.markdown(
+                f"""
+                <style>
+                    .stats-box {{
+                        background-color: #f0f0f0;
+                        padding: 15px;
+                        border-radius: 10px;
+                        font-family: Arial, sans-serif;
+                        color: #333;
+                    }}
+                    .stats-title {{
+                        font-size: 20px;
+                        font-weight: bold;
+                        margin-bottom: 10px;
+                    }}
+                    .stats-details {{
+                        font-size: 16px;
+                        font-weight: bold;
+                    }}
+                    .compact-line {{
+                        font-size: 14px;
+                    }}
+                    .bold {{
+                        font-weight: bold;
+                    }}
+                </style>
+                """, unsafe_allow_html=True)
+            st.markdown(f"""
+                <div class="stats-box">
+                    <div class="stats-title">{batsman_selected} {f'vs {bowler_selected}' if bowler_selected != 'All' else '(All)'}</div>
+                    <div class="stats-details">
+                        Runs: {int(total_runs)}  
+                    </div>
+                    <div class="stats-details">
+                        Balls: {int(total_balls)}  
+                    </div>
+                    <div class="stats-details">
+                        Wickets: {int(total_dismissals)} 🟥
+                    </div>
+                    <div class="stats-details">
+                        S/R: {strike_rate:.1f}  
+                    </div>
+                    <div class="stats-details">
+                        Avg: {avg_runs:.1f}
+                    </div>
+                    <div class="compact-line">
+                        <span class="bold">0s:</span> <span class="white-square"></span> ({percent_zeros:.1f}%) | 
+                        <span class="bold">1s:</span> {int(total_ones)} 🟩 ({percent_ones:.1f}%) | 
+                        <span class="bold">2s:</span> {int(total_twos)} 🟦 ({percent_twos:.1f}%) | 
+                        <span class="bold">3s:</span> {int(total_threes)} 🟪 ({percent_threes:.1f}%) | 
+                        <span class="bold">4s:</span> {int(total_fours)} 🟨 ({percent_fours:.1f}%) | 
+                        <span class="bold">6s:</span> {int(total_sixes)} 🟫 ({percent_sixes:.1f}%)
+                    </div>
+                </div>
+            """, unsafe_allow_html=True)
+        @st.cache_data
+        def get_sector_angle(zone, batting_style, offset=0):
+            base_angles = {
+                1: 45,   # Third Man
+                2: 90,   # Point
+                3: 135,  # Covers
+                4: 180,  # Mid-off
+                5: 225,  # Mid-on
+                6: 270,  # Mid-wicket
+                7: 315,  # Square leg
+                8: 360   # Fine leg
+            }
+            angle = base_angles[zone] + offset
+            if batting_style == 'LHB':
+                angle = (180 + angle) % 360
+            return np.radians(angle)
+        @st.cache_data
+        def get_line_properties(runs):
+            properties = {
+                1: {'color': 'darkgreen', 'length': 0.5, 'width': 2.5,'alpha':1},    
+                2: {'color': 'darkblue', 'length': 0.65, 'width': 2.5},    
+                3: {'color': 'darkviolet', 'length': 0.8, 'width': 2.5},   
+                4: {'color': 'goldenrod', 'length': 1.0, 'width': 3},     
+                6: {'color': 'maroon', 'length': 1.1, 'width': 4}     
+            }
+            return properties.get(runs, {'color': 'white', 'length': 0.4, 'width': 1,'alpha':1})
+        @st.cache_data
+        def draw_cricket_field_with_wagon_wheel(final_df):
+            fig, ax = plt.subplots(figsize=(10, 10))
+            ax.set_aspect('equal')
+            ax.axis('off')
             
-#             # Draw base field elements with lighter outer green
-#             # boundary = plt.Circle((0, 0), 1, fill=True, color='#228B22', alpha=0.7) 
-#             boundary = plt.Circle((0, 0), 1, fill=True, color='#228B22', alpha=1)# Lighter green
-#             boundary_line = plt.Circle((0, 0), 1, fill=False, color='black', linewidth=4)
-#             boundary_glow = plt.Circle((0, 0), 1, fill=False, color='black', linewidth=4, alpha=1)
-#             inner_circle = plt.Circle((0, 0), 0.5, fill=True, color='#90EE90')
-#             inner_circle_line = plt.Circle((0, 0), 0.5, fill=False, color='white', linewidth=1)
+            # Draw base field elements with lighter outer green
+            # boundary = plt.Circle((0, 0), 1, fill=True, color='#228B22', alpha=0.7) 
+            boundary = plt.Circle((0, 0), 1, fill=True, color='#228B22', alpha=1)# Lighter green
+            boundary_line = plt.Circle((0, 0), 1, fill=False, color='black', linewidth=4)
+            boundary_glow = plt.Circle((0, 0), 1, fill=False, color='black', linewidth=4, alpha=1)
+            inner_circle = plt.Circle((0, 0), 0.5, fill=True, color='#90EE90')
+            inner_circle_line = plt.Circle((0, 0), 0.5, fill=False, color='white', linewidth=1)
             
-#             # Add title
-#             plt.title('WAGON WHEEL', pad=2, color='white', size=8, fontweight='bold')
+            # Add title
+            plt.title('WAGON WHEEL', pad=2, color='white', size=8, fontweight='bold')
             
-#             # Draw sector lines
-#             angles = np.linspace(0, 2*np.pi, 9)[:-1]
-#             for angle in angles:
-#                 x = np.cos(angle)
-#                 y = np.sin(angle)
-#                 ax.plot([0, x], [0, y], color='white', alpha=0.2, linewidth=1)
+            # Draw sector lines
+            angles = np.linspace(0, 2*np.pi, 9)[:-1]
+            for angle in angles:
+                x = np.cos(angle)
+                y = np.sin(angle)
+                ax.plot([0, x], [0, y], color='white', alpha=0.2, linewidth=1)
             
-#             # Draw pitch rectangle
-#             pitch_width = 0.08
-#             pitch_length = 0.16
-#             pitch_rect = plt.Rectangle((-pitch_width/2, -pitch_length/2), 
-#                                     pitch_width, pitch_length, 
-#                                     color='tan', alpha=1)
+            # Draw pitch rectangle
+            pitch_width = 0.08
+            pitch_length = 0.16
+            pitch_rect = plt.Rectangle((-pitch_width/2, -pitch_length/2), 
+                                    pitch_width, pitch_length, 
+                                    color='tan', alpha=1)
             
-#             # Add base elements to plot
-#             ax.add_patch(boundary)
-#             ax.add_patch(boundary_glow)
-#             ax.add_patch(boundary_line)
-#             ax.add_patch(inner_circle)
-#             ax.add_patch(inner_circle_line)
-#             ax.add_patch(pitch_rect)
+            # Add base elements to plot
+            ax.add_patch(boundary)
+            ax.add_patch(boundary_glow)
+            ax.add_patch(boundary_line)
+            ax.add_patch(inner_circle)
+            ax.add_patch(inner_circle_line)
+            ax.add_patch(pitch_rect)
             
-#             # Group shots by zone to handle overlapping
-#             for zone in range(1, 9):
-#                 zone_shots = final_df[final_df['wagonZone'] == zone]
-#                 zone_shots = zone_shots.sort_values('batsman_runs', ascending=False)
+            # Group shots by zone to handle overlapping
+            for zone in range(1, 9):
+                zone_shots = final_df[final_df['wagonZone'] == zone]
+                zone_shots = zone_shots.sort_values('batsman_runs', ascending=False)
                 
-#                 num_shots = len(zone_shots)
-#                 if num_shots > 1:
-#                     offsets = np.linspace(-15, 15, num_shots)
-#                 else:
-#                     offsets = [0]
+                num_shots = len(zone_shots)
+                if num_shots > 1:
+                    offsets = np.linspace(-15, 15, num_shots)
+                else:
+                    offsets = [0]
                 
-#                 for (_, shot), offset in zip(zone_shots.iterrows(), offsets):
-#                     angle = get_sector_angle(shot['wagonZone'], shot['batting_style'], offset)
-#                     props = get_line_properties(shot['batsman_runs'])
+                for (_, shot), offset in zip(zone_shots.iterrows(), offsets):
+                    angle = get_sector_angle(shot['wagonZone'], shot['batting_style'], offset)
+                    props = get_line_properties(shot['batsman_runs'])
                     
-#                     x = props['length'] * np.cos(angle)
-#                     y = props['length'] * np.sin(angle)
+                    x = props['length'] * np.cos(angle)
+                    y = props['length'] * np.sin(angle)
                     
-#                     ax.plot([0, x], [0, y], 
-#                         color=props['color'], 
-#                         linewidth=props['width'], 
-#                         alpha=0.9,  # Increased line opacity
-#                         solid_capstyle='round')
+                    ax.plot([0, x], [0, y], 
+                        color=props['color'], 
+                        linewidth=props['width'], 
+                        alpha=0.9,  # Increased line opacity
+                        solid_capstyle='round')
             
-#             ax.set_xlim(-1.2, 1.2)
+            ax.set_xlim(-1.2, 1.2)
     
-#             ax.set_ylim(-1.2, 1.2)
-#             plt.tight_layout(pad=0)
+            ax.set_ylim(-1.2, 1.2)
+            plt.tight_layout(pad=0)
             
-#             return fig
+            return fig
 
         
-#         left_col, right_col = st.columns([2.5, 4])
+        left_col, right_col = st.columns([2.5, 4])
 
-#         with left_col:
-#             st.markdown("## WAGON WHEEL")
-#             fig = draw_cricket_field_with_wagon_wheel(final_df)
-#             st.pyplot(fig, use_container_width=True)
+        with left_col:
+            st.markdown("## WAGON WHEEL")
+            fig = draw_cricket_field_with_wagon_wheel(final_df)
+            st.pyplot(fig, use_container_width=True)
 
-#         with right_col:
-#            # Define pitch zones with boundaries
-#            zones = {
-#                'Short': (8, 10),
-#                'Back of Length': (6, 8),
-#                'Good': (4, 6),
-#                'Full': (2, 4),
-#                'Yorker': (0, 2),
-#                'Full Toss': (-2, 0)
-#            }
+        with right_col:
+           # Define pitch zones with boundaries
+           zones = {
+               'Short': (8, 10),
+               'Back of Length': (6, 8),
+               'Good': (4, 6),
+               'Full': (2, 4),
+               'Yorker': (0, 2),
+               'Full Toss': (-2, 0)
+           }
            
-#            # Adjusted line positions for compact spacing
-#            line_positions = {
-#                'WIDE_OUTSIDE_OFFSTUMP': -0.3,
-#                'OUTSIDE_OFFSTUMP': -0.15,
-#                'ON_THE_STUMPS': 0,
-#                'DOWN_LEG': 0.15,
-#                'WIDE_DOWN_LEG': 0.3
-#            }
+           # Adjusted line positions for compact spacing
+           line_positions = {
+               'WIDE_OUTSIDE_OFFSTUMP': -0.3,
+               'OUTSIDE_OFFSTUMP': -0.15,
+               'ON_THE_STUMPS': 0,
+               'DOWN_LEG': 0.15,
+               'WIDE_DOWN_LEG': 0.3
+           }
            
-#            # Adjusted length positions
-#            length_positions = {
-#                'SHORT': 9,
-#                'SHORT_OF_A_GOOD_LENGTH': 7,
-#                'GOOD_LENGTH': 5,
-#                'FULL': 3,
-#                'YORKER': 1,
-#                'FULL_TOSS': -1
-#            }
+           # Adjusted length positions
+           length_positions = {
+               'SHORT': 9,
+               'SHORT_OF_A_GOOD_LENGTH': 7,
+               'GOOD_LENGTH': 5,
+               'FULL': 3,
+               'YORKER': 1,
+               'FULL_TOSS': -1
+           }
            
-#            # Function to apply a small random offset to length and line
-#            @st.cache_data
-#            def apply_offsets(x_value, y_value, x_offset_range=(-0.04, 0.04), y_offset_range=(-0.95, 0.95), 
-#                              x_boundary=(-0.5, 0.5), y_boundary=(-2, 10)):
-#                x_offset = np.random.uniform(x_offset_range[0], x_offset_range[1])
-#                y_offset = np.random.uniform(y_offset_range[0], y_offset_range[1])
-#                x_pos = max(min(x_value + x_offset, x_boundary[1]), x_boundary[0])
-#                y_pos = max(min(y_value + y_offset, y_boundary[1]), y_boundary[0])
-#                return x_pos, y_pos
+           # Function to apply a small random offset to length and line
+           @st.cache_data
+           def apply_offsets(x_value, y_value, x_offset_range=(-0.04, 0.04), y_offset_range=(-0.95, 0.95), 
+                             x_boundary=(-0.5, 0.5), y_boundary=(-2, 10)):
+               x_offset = np.random.uniform(x_offset_range[0], x_offset_range[1])
+               y_offset = np.random.uniform(y_offset_range[0], y_offset_range[1])
+               x_pos = max(min(x_value + x_offset, x_boundary[1]), x_boundary[0])
+               y_pos = max(min(y_value + y_offset, y_boundary[1]), y_boundary[0])
+               return x_pos, y_pos
            
-#            # Set up the 3D plot
-#            fig = go.Figure()
+           # Set up the 3D plot
+           fig = go.Figure()
            
-#            # Define stumps and bails
-#            stump_positions = [-0.05, 0, 0.05]
-#            stump_height = 0.3
-#            stump_thickness = 2
-#            bail_height = stump_height + 0.002
+           # Define stumps and bails
+           stump_positions = [-0.05, 0, 0.05]
+           stump_height = 0.3
+           stump_thickness = 2
+           bail_height = stump_height + 0.002
            
-#            # Add stumps and bails in a loop
-#            for x_pos in stump_positions:
-#                fig.add_trace(go.Scatter3d(
-#                    x=[x_pos, x_pos],
-#                    y=[0, 0],
-#                    z=[0, stump_height],
-#                    mode='lines',
-#                    line=dict(color='black', width=stump_thickness),
-#                    showlegend=False
-#                ))
+           # Add stumps and bails in a loop
+           for x_pos in stump_positions:
+               fig.add_trace(go.Scatter3d(
+                   x=[x_pos, x_pos],
+                   y=[0, 0],
+                   z=[0, stump_height],
+                   mode='lines',
+                   line=dict(color='black', width=stump_thickness),
+                   showlegend=False
+               ))
            
-#            fig.add_trace(go.Scatter3d(
-#                x=[stump_positions[0], stump_positions[1]],
-#                y=[0, 0],
-#                z=[bail_height, bail_height],
-#                mode='lines',
-#                line=dict(color='black', width=2),
-#                showlegend=False
-#            ))
-#            fig.add_trace(go.Scatter3d(
-#                x=[stump_positions[1], stump_positions[2]],
-#                y=[0, 0],
-#                z=[bail_height, bail_height],
-#                mode='lines',
-#                line=dict(color='black', width=2),
-#                showlegend=False
-#            ))
+           fig.add_trace(go.Scatter3d(
+               x=[stump_positions[0], stump_positions[1]],
+               y=[0, 0],
+               z=[bail_height, bail_height],
+               mode='lines',
+               line=dict(color='black', width=2),
+               showlegend=False
+           ))
+           fig.add_trace(go.Scatter3d(
+               x=[stump_positions[1], stump_positions[2]],
+               y=[0, 0],
+               z=[bail_height, bail_height],
+               mode='lines',
+               line=dict(color='black', width=2),
+               showlegend=False
+           ))
            
-#            # Add pitch zones in a single loop
-#            for zone_name, (y_min, y_max) in zones.items():
-#                fig.add_trace(go.Scatter3d(
-#                    x=[-0.5, 0.5, 0.5, -0.5, -0.5],
-#                    y=[y_min, y_min, y_max, y_max, y_min],
-#                    z=[0, 0, 0, 0, 0],
-#                    mode='lines+markers',
-#                    line=dict(color="gray", width=2),
-#                    marker=dict(size=0.1, opacity=0.2),
-#                    showlegend=False
-#                ))
+           # Add pitch zones in a single loop
+           for zone_name, (y_min, y_max) in zones.items():
+               fig.add_trace(go.Scatter3d(
+                   x=[-0.5, 0.5, 0.5, -0.5, -0.5],
+                   y=[y_min, y_min, y_max, y_max, y_min],
+                   z=[0, 0, 0, 0, 0],
+                   mode='lines+markers',
+                   line=dict(color="gray", width=2),
+                   marker=dict(size=0.1, opacity=0.2),
+                   showlegend=False
+               ))
            
-#            # Add length labels
-#            for length, y_position in length_positions.items():
-#                fig.add_trace(go.Scatter3d(
-#                    x=[0.6],
-#                    y=[y_position],
-#                    z=[0],
-#                    mode='text',
-#                    text=[length],
-#                    textposition="middle right",
-#                    textfont=dict(size=10, color="black"),
-#                    showlegend=False
-#                ))
+           # Add length labels
+           for length, y_position in length_positions.items():
+               fig.add_trace(go.Scatter3d(
+                   x=[0.6],
+                   y=[y_position],
+                   z=[0],
+                   mode='text',
+                   text=[length],
+                   textposition="middle right",
+                   textfont=dict(size=10, color="black"),
+                   showlegend=False
+               ))
            
-#            # Adjust batting style variable for RHB and LHB
-#            batting_style = final_df['batting_style'].iloc[0] if 'batting_style' in final_df else 'RHB'
-#            st.write(f"Batting Style: {batting_style}")
+           # Adjust batting style variable for RHB and LHB
+           batting_style = final_df['batting_style'].iloc[0] if 'batting_style' in final_df else 'RHB'
+           st.write(f"Batting Style: {batting_style}")
            
-#            # Set mirroring factor based on RHB or LHB
-#            mirror_factor = -1 if batting_style == 'LHB' else 1
+           # Set mirroring factor based on RHB or LHB
+           mirror_factor = -1 if batting_style == 'LHB' else 1
            
-#            # Collect points to plot all balls at once, avoiding individual traces
-#            balls_data = []
+           # Collect points to plot all balls at once, avoiding individual traces
+           balls_data = []
            
-#            for index, row in final_df.iterrows():
-#                if pd.isna(row['line']) or pd.isna(row['length']) or row['batsman_runs'] == 0:
-#                    continue
+           for index, row in final_df.iterrows():
+               if pd.isna(row['line']) or pd.isna(row['length']) or row['batsman_runs'] == 0:
+                   continue
            
-#                # Get base X and Y positions from line and length
-#                x_base = line_positions.get(row['line'], 0) * mirror_factor
-#                y_base = length_positions.get(row['length'], 5)
+               # Get base X and Y positions from line and length
+               x_base = line_positions.get(row['line'], 0) * mirror_factor
+               y_base = length_positions.get(row['length'], 5)
                
-#                # Apply offsets
-#                x_pos, y_pos = apply_offsets(x_base, y_base)
-#                z_pos = 0
+               # Apply offsets
+               x_pos, y_pos = apply_offsets(x_base, y_base)
+               z_pos = 0
            
-#                # Set color and animation based on wicket status
-#                if row['is_wkt'] == 1:
-#                    color = 'red'
-#                    size = 8
-#                    opacity = [1, 0.5, 1, 0.8, 1]  # Twinkle effect sequence
-#                else:
-#                    batsman_runs = row['batsman_runs']
-#                    color = {
-#                        1: 'green',
-#                        2: 'blue',
-#                        3: 'violet',
-#                        4: 'yellow',
-#                        6: 'orange'
-#                    }.get(batsman_runs, 'gray')
-#                    size = 5
-#                    opacity = [1]  # Static for non-wicket balls
+               # Set color and animation based on wicket status
+               if row['is_wkt'] == 1:
+                   color = 'red'
+                   size = 8
+                   opacity = [1, 0.5, 1, 0.8, 1]  # Twinkle effect sequence
+               else:
+                   batsman_runs = row['batsman_runs']
+                   color = {
+                       1: 'green',
+                       2: 'blue',
+                       3: 'violet',
+                       4: 'yellow',
+                       6: 'orange'
+                   }.get(batsman_runs, 'gray')
+                   size = 5
+                   opacity = [1]  # Static for non-wicket balls
            
-#                balls_data.append({
-#                    'x': [x_pos],
-#                    'y': [y_pos],
-#                    'z': [z_pos],
-#                    'mode': 'markers',
-#                    'marker': dict(size=size, color=color, opacity=opacity[0]),
-#                    'hoverinfo': "text",
-#                    'text': f"Runs: {row['batsman_runs']} - {'Wicket' if row['is_wkt'] else 'Run'}"
-#                })
+               balls_data.append({
+                   'x': [x_pos],
+                   'y': [y_pos],
+                   'z': [z_pos],
+                   'mode': 'markers',
+                   'marker': dict(size=size, color=color, opacity=opacity[0]),
+                   'hoverinfo': "text",
+                   'text': f"Runs: {row['batsman_runs']} - {'Wicket' if row['is_wkt'] else 'Run'}"
+               })
            
-#            # Add all balls at once to minimize `add_trace` calls
-#            for ball in balls_data:
-#                fig.add_trace(go.Scatter3d(**ball))
+           # Add all balls at once to minimize `add_trace` calls
+           for ball in balls_data:
+               fig.add_trace(go.Scatter3d(**ball))
            
-#            # Layout settings
-#            fig.update_layout(
-#                scene=dict(
-#                    xaxis=dict(title='X-axis', range=[-1, 1]),
-#                    yaxis=dict(title='Y-axis', range=[-2, 10]),
-#                    zaxis=dict(title='Z-axis (Height)', range=[0, 2]),
-#                ),
-#                width=700,
-#                height=800,
-#                showlegend=False
-#            )
+           # Layout settings
+           fig.update_layout(
+               scene=dict(
+                   xaxis=dict(title='X-axis', range=[-1, 1]),
+                   yaxis=dict(title='Y-axis', range=[-2, 10]),
+                   zaxis=dict(title='Z-axis (Height)', range=[0, 2]),
+               ),
+               width=700,
+               height=800,
+               showlegend=False
+           )
            
-#            # Streamlit display
-#            st.plotly_chart(fig)
+           # Streamlit display
+           st.plotly_chart(fig)
 
 
-#         line_positions = {
-#             'WIDE_OUTSIDE_OFFSTUMP': 0,
-#             'OUTSIDE_OFFSTUMP': 1,
-#             'ON_THE_STUMPS': 2,
-#             'DOWN_LEG': 3,
-#             'WIDE_DOWN_LEG': 4
-#         }
+        line_positions = {
+            'WIDE_OUTSIDE_OFFSTUMP': 0,
+            'OUTSIDE_OFFSTUMP': 1,
+            'ON_THE_STUMPS': 2,
+            'DOWN_LEG': 3,
+            'WIDE_DOWN_LEG': 4
+        }
 
-#         length_positions = {
-#             'SHORT': 0,
-#             'SHORT_OF_A_GOOD_LENGTH': 1,
-#             'GOOD_LENGTH': 2,
-#             'FULL': 3,
-#             'YORKER': 4
-#         }
+        length_positions = {
+            'SHORT': 0,
+            'SHORT_OF_A_GOOD_LENGTH': 1,
+            'GOOD_LENGTH': 2,
+            'FULL': 3,
+            'YORKER': 4
+        }
 
-#         # Initialize 5x5 grids for ball frequency, run accumulation, and wicket counts
-#         run_count_grid = np.zeros((5, 5))
-#         wicket_count_grid = np.zeros((5, 5))
+        # Initialize 5x5 grids for ball frequency, run accumulation, and wicket counts
+        run_count_grid = np.zeros((5, 5))
+        wicket_count_grid = np.zeros((5, 5))
 
-#         # Filter out rows where line or length is NaN
-#         filtered_df = final_df.dropna(subset=['line', 'length'])
+        # Filter out rows where line or length is NaN
+        filtered_df = final_df.dropna(subset=['line', 'length'])
 
-#         # Fill the grids based on filtered data
-#         for _, row in filtered_df.iterrows():
-#             line = row['line']
-#             length = row['length']
-#             runs = row['batsman_runs']
-#             is_wkt = row['is_wkt']
+        # Fill the grids based on filtered data
+        for _, row in filtered_df.iterrows():
+            line = row['line']
+            length = row['length']
+            runs = row['batsman_runs']
+            is_wkt = row['is_wkt']
 
-#             # Get the index positions from the mappings
-#             line_idx = line_positions.get(line)
-#             length_idx = length_positions.get(length)
+            # Get the index positions from the mappings
+            line_idx = line_positions.get(line)
+            length_idx = length_positions.get(length)
             
-#             if line_idx is not None and length_idx is not None:
-#                 # Update run counts and wicket counts in the corresponding cell
-#                 run_count_grid[length_idx, line_idx] += runs
-#                 if is_wkt == 1:
-#                     wicket_count_grid[length_idx, line_idx] += 1
+            if line_idx is not None and length_idx is not None:
+                # Update run counts and wicket counts in the corresponding cell
+                run_count_grid[length_idx, line_idx] += runs
+                if is_wkt == 1:
+                    wicket_count_grid[length_idx, line_idx] += 1
 
-#         # Labels for line and length positions
-#         line_labels = ['Wide Outside Off', 'Outside Off', 'On Stumps', 'Down Leg', 'Wide Down Leg']
-#         length_labels = ['Short', 'Back of Length', 'Good Length', 'Full', 'Yorker']
+        # Labels for line and length positions
+        line_labels = ['Wide Outside Off', 'Outside Off', 'On Stumps', 'Down Leg', 'Wide Down Leg']
+        length_labels = ['Short', 'Back of Length', 'Good Length', 'Full', 'Yorker']
 
-#         # Function to create heatmap figure for a 5x5 grid
-#         @st.cache_data
-#         def create_heatmap(grid, title, annotations):
-#             fig = go.Figure(
-#                 data=go.Heatmap(
-#                     z=grid,
-#                     colorscale='Reds',
-#                     colorbar=dict(title=title)
-#                 )
-#             )
-#             # Add annotations to show counts
-#             for i in range(5):
-#                 for j in range(5):
-#                     fig.add_annotation(
-#                         x=j, y=i,
-#                         text=f'{int(annotations[i, j])}',
-#                         showarrow=False,
-#                         font=dict(color="black", size=12)
-#                     )
+        # Function to create heatmap figure for a 5x5 grid
+        @st.cache_data
+        def create_heatmap(grid, title, annotations):
+            fig = go.Figure(
+                data=go.Heatmap(
+                    z=grid,
+                    colorscale='Reds',
+                    colorbar=dict(title=title)
+                )
+            )
+            # Add annotations to show counts
+            for i in range(5):
+                for j in range(5):
+                    fig.add_annotation(
+                        x=j, y=i,
+                        text=f'{int(annotations[i, j])}',
+                        showarrow=False,
+                        font=dict(color="black", size=12)
+                    )
             
-#             # Update layout for labels and orientation
-#             fig.update_layout(
-#                 xaxis=dict(showgrid=False, tickvals=list(range(5)), ticktext=line_labels, title="Line"),
-#                 yaxis=dict(showgrid=False, tickvals=list(range(5)), ticktext=length_labels, title="Length"),
-#                 height=700, width=300  # Adjusted size for display
-#             )
-#             return fig
+            # Update layout for labels and orientation
+            fig.update_layout(
+                xaxis=dict(showgrid=False, tickvals=list(range(5)), ticktext=line_labels, title="Line"),
+                yaxis=dict(showgrid=False, tickvals=list(range(5)), ticktext=length_labels, title="Length"),
+                height=700, width=300  # Adjusted size for display
+            )
+            return fig
 
-#         # Organize layouts in two columns to make them appear side-by-side
-#         col1, col2 = st.columns(2)
+        # Organize layouts in two columns to make them appear side-by-side
+        col1, col2 = st.columns(2)
 
-#         with col1:
-#             st.write("### Wicket Count")
-#             # Display the wicket count grid
-#             st.plotly_chart(create_heatmap(wicket_count_grid, "Wickets", wicket_count_grid), use_container_width=True)
+        with col1:
+            st.write("### Wicket Count")
+            # Display the wicket count grid
+            st.plotly_chart(create_heatmap(wicket_count_grid, "Wickets", wicket_count_grid), use_container_width=True)
 
-#         with col2:
-#             st.write("### Runs Scored")
-#             # Display the runs count grid
-#             st.plotly_chart(create_heatmap(run_count_grid, "Runs", run_count_grid), use_container_width=True)
+        with col2:
+            st.write("### Runs Scored")
+            # Display the runs count grid
+            st.plotly_chart(create_heatmap(run_count_grid, "Runs", run_count_grid), use_container_width=True)
 
 
 
