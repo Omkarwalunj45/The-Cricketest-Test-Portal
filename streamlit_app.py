@@ -297,26 +297,22 @@ def bowlerstat(df):
 import dask.dataframe as dd
 import streamlit as st
 
+import vaex
+import streamlit as st
+
 @st.cache_data
 def load_data():
-    # Use Dask to read the CSV file
-    df = dd.read_csv(
-        "https://media.githubusercontent.com/media/Omkarwalunj45/Test_cricket_portal/refs/heads/main/tests_final.csv", 
-        assume_missing=True,  # Handle missing data more flexibly
-        low_memory=False
-    )
-    
-    # Perform operations like renaming columns and creating 'is_wicket'
-    # Since Dask operations are lazy, you must compute at the end
-    df = df.rename(columns={'innings': 'inning'})
-    
-    # Convert 'out' column to 'is_wicket' column (assuming 'out' exists and is numeric)
-    df['is_wicket'] = df['out'].astype(int)
-
-    # Compute the results to bring the data into memory for further operations
-    df = df.compute()
-
-    return df
+    try:
+        # Use Vaex to read the CSV file
+        df = vaex.open("https://media.githubusercontent.com/media/Omkarwalunj45/Test_cricket_portal/refs/heads/main/tests_final.csv")
+        
+        # Perform operations on the dataframe
+        df['is_wicket'] = df['out'].astype(int)
+        
+        return df
+    except Exception as e:
+        st.error(f"Error loading data: {e}")
+        return None
 
 @st.cache_data
 def load_bowling_data():
