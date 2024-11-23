@@ -5,7 +5,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import plotly.graph_objects as go  
 
-
 st.set_page_config(page_title='Test Cricket Performance Analysis Portal', layout='wide')
 st.title('Test Cricket Performance Analysis Portal')
  # Define pitch zones with boundaries
