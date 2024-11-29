@@ -1909,7 +1909,7 @@ else:
             st.write("### Runs Scored")
             # Display the runs count grid
             st.plotly_chart(create_heatmap(run_count_grid, "Runs", run_count_grid), use_container_width=True)
-         
+        
         @st.cache_data
         def apply_length_offset(y_value, offset_range=(-0.95, 0.95), boundary=(-2, 10)):
             offset = np.random.uniform(offset_range[0], offset_range[1])
@@ -2061,6 +2061,8 @@ else:
 
 
         bat_hand = final_df['batting_style'].iloc[0]
+        pace_df = final_df[final_df['bowl_kind']='pace bowler']
+        spin_df = final_df[final_df['bowl_kind']='spin bowler']
         # Display each plot in the respective column
         with col1:
             st.write("### Against Pace")
