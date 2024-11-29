@@ -1063,7 +1063,7 @@ elif sidebar_option == "Matchup Analysis":
             result_df = result_df[new_order]
             st.table(result_df.style.set_table_attributes("style='font-weight: bold;'"))
             
-        elif grouping_option == Inning:
+        elif grouping_option == "Inning":
             # Assuming pdf is your main DataFrame
             # Filter for innings 1 and 2 and prepare to accumulate results
             innings = [1,2,3,4]
