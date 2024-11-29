@@ -2061,8 +2061,8 @@ else:
 
 
         bat_hand = final_df['batting_style'].iloc[0]
-        pace_df = final_df[final_df['bowl_kind']='pace bowler']
-        spin_df = final_df[final_df['bowl_kind']='spin bowler']
+        pace_df = final_df[final_df['bowl_kind']=='pace bowler']
+        spin_df = final_df[final_df['bowl_kind']=='spin bowler']
         # Display each plot in the respective column
         with col1:
             st.write("### Against Pace")
