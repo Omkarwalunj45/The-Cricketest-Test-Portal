@@ -2024,8 +2024,6 @@ elif sidebar_option == "Match by Match Analysis":
             # Display the runs count grid
             st.plotly_chart(create_heatmap(run_count_grid, "Runs", run_count_grid), use_container_width=True)
 
-
-
 elif sidebar_option == "Strength and Weakness Analysis":
     st.header("Strength and Weakness Analysis")
     player_name = st.selectbox("Search for a player", idf['batsman'].unique())
