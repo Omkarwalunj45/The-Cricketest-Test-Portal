@@ -2929,7 +2929,7 @@ elif sidebar_option == "Strength and Weakness Analysis":
             st.write("## No Bowling Data Available")
 
 else:
- st.header("Venue Analysis")
+ st.header("Venue Analysis: Perth Stadium")
  # venue_name = st.selectbox("Search for a venue", vdf['venue'].unique())
  final_df = vdf
  session_summary = final_df.groupby('session').agg(
