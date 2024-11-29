@@ -1789,7 +1789,7 @@ elif sidebar_option == "Match by Match Analysis":
             st.write(f"Batting Style: {batting_style}")
 
             # Set mirroring factor based on RHB or LHB
-            mirror_factor = -1 if batting_style == 'LHB' else 1
+            mirror_factor = 1 if batting_style == 'LHB' else -1
 
             # Plot points for each ball, excluding dot balls and rows with NaN in line or length
             for index, row in final_df.iterrows():
