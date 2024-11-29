@@ -1328,10 +1328,10 @@ elif sidebar_option == "Matchup Analysis":
               st.write(f"Batting Style: {batting_style}")
   
               # Set mirroring factor based on RHB or LHB
-              if batting_style == 'LHB' :
+              if batting_style == 'LHB':
                mirror_factor = -1
-              else:
-               mirror_factor= 1
+              elif batting_style == ' RHB':
+               mirror_factor = 1
               # Plot points for each ball, excluding dot balls and rows with NaN in line or length
               for index, row in final_df.iterrows():
                   if pd.isna(row['line']) or pd.isna(row['length']) or row['batsman_runs'] == 0:
