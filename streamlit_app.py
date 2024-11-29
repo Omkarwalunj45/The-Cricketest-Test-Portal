@@ -1808,8 +1808,8 @@ elif sidebar_option == "Match by Match Analysis":
                 # Set color and animation based on wicket status
                 if row['is_wkt'] == 1:
                     color = 'red'
-                    size = 8
-                    opacity = [1, 0.5, 1, 0.8, 1]  # Twinkle effect sequence
+                    size = 9
+                    opacity = [2]  # Twinkle effect sequence
                 else:
                     batsman_runs = row['batsman_runs']
                     color = {
