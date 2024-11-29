@@ -317,11 +317,12 @@ def load_data():
 
     # Compute the results to bring the data into memory for further operations
     df = df.compute()
-    c = ['India','Australia']
-    df=df[(df['batting_team'] in c ) and (df['bowling_team'] in c )] 
+    c = ['India', 'Australia']
+    df = df[(df['batting_team'].isin(c)) & (df['bowling_team'].isin(c))]
+
 
     return df
-s
+
 @st.cache_data
 def load_bowling_data():
     try:
