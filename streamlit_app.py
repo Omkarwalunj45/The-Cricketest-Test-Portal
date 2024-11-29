@@ -1386,7 +1386,7 @@ elif sidebar_option == "Matchup Analysis":
                           z=[z_pos],
                           mode='markers',
                           marker=dict(size=size, color=color, opacity=opacity),
-                          name='Twinkling Wicket'
+                          name='Twinkling Wicket',
                           hoverinfo="text",
                           text=f"Line: {row['line']}<br>Length: {row['length']}<br>Runs: {row['batsman_runs']} - Wicket"
                       ))
