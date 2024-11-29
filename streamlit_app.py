@@ -298,27 +298,15 @@ import dask.dataframe as dd
 @st.cache_data
 def load_data():
     # Use Dask to read the CSV file
-    df = dd.read_csv(
-        "https://media.githubusercontent.com/media/Omkarwalunj45/Test_cricket_portal/refs/heads/main/tests_final.csv", 
-        assume_missing=True,  # Handle missing data more flexibly
-        low_memory=False
+    df = pd.read_csv(
+        "https://media.githubusercontent.com/media/Omkarwalunj45/Test_cricket_portal/refs/heads/main/tests_final.csv",
+         low_memory=False
     )
-    
-    # Perform operations like renaming columns and creating 'is_wicket'
-    # Since Dask operations are lazy, you must compute at the end
-    df = df.rename(columns={'innings': 'inning'})
-    
-    # Convert 'out' column to 'is_wicket' column (assuming 'out' exists and is numeric)
-    df['is_wicket'] = df['out'].astype(int)
-
-    # Compute the results to bring the data into memory for further operations
-    df = df.compute()
     c = ['India', 'Australia']
     df = df[(df['batting_team'].isin(c)) & (df['bowling_team'].isin(c))]
-
-
+    df = df.rename(columns={'innings': 'inning'})
+    df['is_wicket'] = df['out'].astype(int)
     return df
-
 @st.cache_data
 def load_bowling_data():
     try:
