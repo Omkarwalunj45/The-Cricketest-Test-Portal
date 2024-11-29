@@ -1408,7 +1408,7 @@ elif sidebar_option == "Match by Match Analysis":
                     return y_value + offset
                 return y_value
 
-            def apply_line_offset(x_value, offset_range=(-0.04, 0.04), boundary=(-0.5, 0.5)):
+            def apply_line_offset(x_value, offset_range=(-0.07, 0.07), boundary=(-0.5, 0.5)):
                 offset = np.random.uniform(offset_range[0], offset_range[1])
                 if boundary[0] <= x_value + offset <= boundary[1]:
                     return x_value + offset
