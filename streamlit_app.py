@@ -2256,9 +2256,9 @@ else:
                                      yaxis=dict(title='Y-axis', range=[-2, 10], showgrid=False, zeroline=False),
                                      zaxis=dict(title='Z-axis (Height)', range=[0, 2], showgrid=False, zeroline=False),
                                      camera=dict(
-                                         eye=dict(x=0, y=1.5, z=0.5),  # Adjust the viewing angle
+                                         eye=dict(x=0, y=0, z=0.5),  # Adjust the viewing angle
                                          center=dict(x=0, y=0, z=0),  # Center the camera
-                                         up=dict(x=0, y=0, z=1)  # Control the up direction
+                                         up=dict(x=0, y=0, z=0)  # Control the up direction
                                      )
                                  ),
                                  width=1200,
