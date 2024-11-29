@@ -293,8 +293,6 @@ def bowlerstat(df):
 
     return bowl_rec
 
-import dask.dataframe as dd
-
 @st.cache_data
 def load_data():
     # Use Dask to read the CSV file
