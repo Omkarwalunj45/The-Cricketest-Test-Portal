@@ -2251,15 +2251,21 @@ else:
             # Twinkle effect for wickets (already added in the wicket balls loop)
         
             fig.update_layout(
-                scene=dict(
-                    xaxis=dict(title='X-axis', range=[-1, 1]),
-                    yaxis=dict(title='Y-axis', range=[-2, 10]),
-                    zaxis=dict(title='Z-axis (Height)', range=[0, 2]),
-                ),
-                width=1200,
-                height=1000,
-                showlegend=False
-            )
+                                 scene=dict(
+                                     xaxis=dict(title='X-axis', range=[-1, 1], showgrid=False, zeroline=False),
+                                     yaxis=dict(title='Y-axis', range=[-2, 10], showgrid=False, zeroline=False),
+                                     zaxis=dict(title='Z-axis (Height)', range=[0, 2], showgrid=False, zeroline=False),
+                                     camera=dict(
+                                         eye=dict(x=1.5, y=1.5, z=0.5),  # Adjust the viewing angle
+                                         center=dict(x=0, y=0, z=0),  # Center the camera
+                                         up=dict(x=0, y=0, z=1)  # Control the up direction
+                                     )
+                                 ),
+                                 width=1200,
+                                 height=1000,
+                                 showlegend=False,
+                                 dragmode=False  # Disable rotation and drag
+                             )
             return fig
 
         bat_hand = final_df['batting_style'].iloc[0]
