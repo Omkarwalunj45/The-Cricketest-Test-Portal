@@ -326,7 +326,7 @@ pdf = load_data()
 bpdf = pdf
 idf = cumulator(pdf)
 bidf = load_bowling_data()
-
+vdf = pd.read_csv("Datasets/vdf.csv", low_memory=False)
 # Define a mapping dictionary to consolidate bowling styles
 bowling_style_mapping = {
     'OB': 'Off-break',
@@ -360,7 +360,7 @@ pdf['bowling_style'] = pdf['bowling_style'].replace(bowling_style_mapping)
 # st.switch_page("Career_Statistics.py"
 sidebar_option = st.sidebar.radio(
     "Select an option:",
-    ("Player Profile", "Matchup Analysis","Strength vs Weakness","Match by Match Analysis")
+    ("Player Profile", "Matchup Analysis","Strength vs Weakness","Match by Match Analysis","Venue Analysis")
 )
 
 allowed_countries = ['India', 'England', 'Australia', 'Pakistan', 'Bangladesh', 
@@ -2026,7 +2026,7 @@ elif sidebar_option == "Match by Match Analysis":
 
 
 
-else:
+elif sidebar_option == "Strength and Weakness Analysis":
     st.header("Strength and Weakness Analysis")
     player_name = st.selectbox("Search for a player", idf['batsman'].unique())
     
@@ -2927,3 +2927,218 @@ else:
                 st.plotly_chart(run_fig_bowler, use_container_width=True)
         else:
             st.write("## No Bowling Data Available")
+
+else:
+ st.header("Venue Analysis")
+ # venue_name = st.selectbox("Search for a venue", vdf['venue'].unique())
+ final_df = vdf
+ session_summary = final_df.groupby('session').agg(
+     RUNS=('total_runs', 'sum'),
+     WKTS=('is_wkt', 'sum'),
+     RUN_RATE=('total_runs', lambda x: x.sum() / final_df.loc[x.index, 'over_num'].max() if len(x) > 0 else 0)
+ ).reset_index()
+ 
+ # Display the session summary table in Streamlit
+ st.write("### Session-wise Summary")
+ 
+ # Display session summary table
+ st.table(session_summary)
+
+ zones = {
+     'SHORT': (8, 10),
+     'SHORT_OF_A_GOOD_LENGTH': (6, 8),
+     'GOOD_LENGTH': (4, 6),
+     'FULL': (2, 4),
+     'YORKER': (0, 2),
+     'FULL_TOSS': (-2, 0)
+ }
+
+ line_positions = {
+     'WIDE_OUTSIDE_OFFSTUMP': 0.25,
+     'OUTSIDE_OFFSTUMP': 0.15,
+     'ON_THE_STUMPS': 0,
+     'DOWN_LEG': -0.15,
+     'WIDE_DOWN_LEG': -0.25
+ }
+
+
+ length_positions = {
+     'SHORT': 9,
+     'SHORT_OF_A_GOOD_LENGTH': 7,
+     'GOOD_LENGTH': 5,
+     'FULL': 3,
+     'YORKER': 1,
+     'FULL_TOSS': -1
+ } 
+
+ # Function to apply a small random offset to length while keeping line accurate
+ def apply_length_offset(y_value, offset_range=(-0.95, 0.95), boundary=(-2, 10)):
+     offset = np.random.uniform(offset_range[0], offset_range[1])
+     if boundary[0] <= y_value + offset <= boundary[1]:
+         return y_value + offset
+     return y_value
+ 
+ def apply_line_offset(x_value, offset_range=(-0.05, 0.05), boundary=(-0.5, 0.5)):
+     offset = np.random.uniform(offset_range[0], offset_range[1])
+     if boundary[0] <= x_value + offset <= boundary[1]:
+         return x_value + offset
+     return x_value
+ 
+ # Set up two columns for LHB and RHB views
+ col1, col2 = st.columns(2)
+ pace_df = final_df[final_df['bowl_kind'] == 'pace bowler']
+ spin_df = final_df[final_df['bowl_kind'] == 'spin bowler']
+ 
+ # Function to create a 3D pitch map based on handedness
+ def create_pitch_map(data, handedness):
+     fig = go.Figure()
+ 
+     # Define stumps and bails
+     stump_positions = [-0.05, 0, 0.05]
+     stump_height = 0.3
+     stump_thickness = 2
+     bail_height = stump_height + 0.002
+ 
+     # Add stumps
+     for x_pos in stump_positions:
+         fig.add_trace(go.Scatter3d(
+             x=[x_pos, x_pos],
+             y=[0, 0],
+             z=[0, stump_height],
+             mode='lines',
+             line=dict(color='black', width=stump_thickness),
+             showlegend=False
+         ))
+ 
+     # Add bails
+     fig.add_trace(go.Scatter3d(
+         x=[stump_positions[0], stump_positions[1]],
+         y=[0, 0],
+         z=[bail_height, bail_height],
+         mode='lines',
+         line=dict(color='black', width=2),
+         showlegend=False
+     ))
+     fig.add_trace(go.Scatter3d(
+         x=[stump_positions[1], stump_positions[2]],
+         y=[0, 0],
+         z=[bail_height, bail_height],
+         mode='lines',
+         line=dict(color='black', width=2),
+         showlegend=False
+     ))
+     zones = {
+                 'SHORT': (8, 10),
+                 'SHORT_OF_A_GOOD_LENGTH': (6, 8),
+                 'GOOD_LENGTH': (4, 6),
+                 'FULL': (2, 4),
+                 'YORKER': (0, 2),
+                 'FULL_TOSS': (-2, 0)
+             }
+
+ 
+     # Add pitch zones
+     for zone_name, (y_min, y_max) in zones.items():
+         fig.add_trace(go.Scatter3d(
+             x=[-0.5, 0.5, 0.5, -0.5, -0.5],
+             y=[y_min, y_min, y_max, y_max, y_min],
+             z=[0, 0, 0, 0, 0],
+             mode='lines+markers',
+             line=dict(color="gray", width=2),
+             marker=dict(size=0.1, opacity=0.2),
+             showlegend=False
+         ))
+ 
+     # Add length labels on the side of the pitch
+     for length, y_position in length_positions.items():
+         fig.add_trace(go.Scatter3d(
+             x=[0.6],  # Adjust X position to be to the side of the pitch
+             y=[y_position],
+             z=[0],
+             mode='text',
+             text=[length],
+             textposition="middle right",
+             textfont=dict(size=10, color="black"),
+             showlegend=False
+         ))
+ 
+     # Set mirroring factor based on handedness
+     if handedness == 'LHB':
+         mirror_factor = -1
+     elif handedness == 'RHB':
+         mirror_factor = 1
+     else:
+         mirror_factor = 0  # Default case if handedness is neither "Left-hand bat" nor "Right-hand bat"
+ 
+     # Separate the data into wicket and non-wicket balls
+     wicket_data = data[data['bowler_wkt'] == 1]
+
+ 
+     # Plot wicket balls first
+     for index, row in wicket_data.iterrows():
+         if pd.isna(row['line']) or pd.isna(row['length']):
+             continue  # Skip this row and move to the next one
+         # Determine base X and Y positions from line and length
+         x_base = line_positions.get(row['line'], 0) * mirror_factor
+         y_base = length_positions.get(row['length'], 5)
+
+         # Apply offset to length (y) while keeping line (x) accurate
+         x_pos = apply_line_offset(x_base, boundary=(-0.5, 0.5))
+         y_pos = apply_length_offset(y_base, boundary=(-2, 10))
+         z_pos = 0
+
+         # Set color and size for wickets
+         color = 'red'
+         size = 5
+         opacity = 1  # Set opacity to a single value
+
+         # Plot the wicket ball
+         fig.add_trace(go.Scatter3d(
+             x=[x_pos],
+             y=[y_pos],
+             z=[z_pos],
+             mode='markers',
+             marker=dict(size=size, color=color, opacity=opacity),
+             hoverinfo="text",
+             text=f"Line: {row['line']}<br>Length: {row['length']}<br>Runs: {row['batsman_runs']} - Wicket"
+         ))
+
+ 
+     
+ 
+     # Twinkle effect for wickets (already added in the wicket balls loop)
+ 
+     fig.update_layout(
+                          scene=dict(
+                              xaxis=dict(title='X-axis', range=[-1, 1], showgrid=False, zeroline=False),
+                              yaxis=dict(title='Y-axis', range=[-2, 10], showgrid=False, zeroline=False),
+                              zaxis=dict(title='Z-axis (Height)', range=[0, 2], showgrid=False, zeroline=False),
+                              camera=dict(
+                                  eye=dict(x=0, y=2, z=0.5),  # Adjust the viewing angle
+                                  center=dict(x=0, y=0, z=0),  # Center the camera
+                                  up=dict(x=0, y=0, z=2)  # Control the up direction
+                              )
+                          ),
+                          width=1200,
+                          height=1000,
+                          showlegend=False,
+                          dragmode=False  # Disable rotation and drag
+                      )
+     return fig
+
+ bat_hand = final_df['batting_style'].iloc[0]
+ # Display each plot in the respective column
+ with col1:
+     st.write("### Against Pace")
+     if pace_df.empty:
+         st.write("No data for Pace")
+     else:
+         # st.plotly_chart(create_pitch_map(pace_df, bat_hand ))
+ 
+ with col2:
+     st.write("### Against Spin")
+     if spin_df.empty:
+         st.write("No data for Right-Handed Batsmen")
+     else:
+         # st.plotly_chart(create_pitch_map(spin_df,bat_hand))
+
