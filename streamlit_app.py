@@ -294,10 +294,6 @@ def bowlerstat(df):
     return bowl_rec
 
 import dask.dataframe as dd
-import streamlit as st
-
-import dask.dataframe as dd
-import streamlit as st
 
 @st.cache_data
 def load_data():
