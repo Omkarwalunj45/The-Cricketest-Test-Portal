@@ -360,7 +360,7 @@ pdf['bowling_style'] = pdf['bowling_style'].replace(bowling_style_mapping)
 # st.switch_page("Career_Statistics.py"
 sidebar_option = st.sidebar.radio(
     "Select an option:",
-    ("Player Profile", "Matchup Analysis","Strength vs Weakness","Match by Match Analysis","Venue Analysis")
+    ("Player Profile", "Matchup Analysis","Strength vs Weakness","Match by Match Analysis")
 )
 
 allowed_countries = ['India', 'England', 'Australia', 'Pakistan', 'Bangladesh', 
@@ -2926,21 +2926,6 @@ elif sidebar_option == "Strength and Weakness Analysis":
         else:
             st.write("## No Bowling Data Available")
 
-else:
- st.header("Venue Analysis: Perth Stadium")
- # venue_name = st.selectbox("Search for a venue", vdf['venue'].unique())
- final_df = vdf
- session_summary = final_df.groupby('session').agg(
-     RUNS=('total_runs', 'sum'),
-     WKTS=('is_wkt', 'sum'),
-     RUN_RATE=('total_runs', lambda x: x.sum() / final_df.loc[x.index, 'over_num'].max() if len(x) > 0 else 0)
- ).reset_index()
- 
- # Display the session summary table in Streamlit
- st.write("### Session-wise Summary")
- 
- # Display session summary table
- st.table(session_summary)
 
  # zones = {
  #     'SHORT': (8, 10),
