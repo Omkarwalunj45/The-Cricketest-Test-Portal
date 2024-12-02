@@ -300,9 +300,9 @@ def load_data():
         "https://media.githubusercontent.com/media/Omkarwalunj45/Test_cricket_portal/refs/heads/main/tests_final.csv",
          low_memory=False
     )
-    # c = ['India', 'Australia','England','New Zealand','South Africa']
-    # df = df[(df['batting_team'].isin(c)) & (df['bowling_team'].isin(c))]
-    df=df[df['year']>=2015]
+    c = ['India', 'Australia','England','New Zealand','South Africa','Pakistan','West Indies','Sri Lanka']
+    df = df[(df['batting_team'].isin(c)) & (df['bowling_team'].isin(c))]
+    # df=df[df['year']>=2015]
     df = df.rename(columns={'innings': 'inning'})
     df['is_wicket'] = df['out'].astype(int)
     return df
