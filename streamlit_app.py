@@ -6,8 +6,7 @@ import matplotlib.pyplot as plt
 import plotly.graph_objects as go  
 
 st.set_page_config(page_title='Test Cricket Performance Analysis Portal (Since 2013)', layout='wide')
-st.title('Test Cricket Performance Analysis Portal 
-(Since 2013)')
+st.title('Test Cricket Performance Analysis Portal                       (Since 2013)')
  # Define pitch zones with boundaries
 zones = {
     'SHORT': (8, 10),
