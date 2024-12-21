@@ -5,7 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import plotly.graph_objects as go  
 
-st.set_page_config(page_title='Test Cricket Performance Analysis Portal', layout='wide')
+st.set_page_config(page_title='Test Cricket Performance Analysis Portal (Since 2013)', layout='wide')
 st.title('Test Cricket Performance Analysis Portal')
  # Define pitch zones with boundaries
 zones = {
@@ -2582,14 +2582,14 @@ else:
         bat_hand = final_df['batting_style'].iloc[0]
         # Display each plot in the respective column
         with col1:
-            st.write("### Against Pace")
+            st.write("### Dismissals Against Pace")
             if pace_df.empty:
                 st.write("No data for Pace")
             else:
                 st.plotly_chart(create_pitch_map(pace_df, bat_hand ))
         
         with col2:
-            st.write("### Against Spin")
+            st.write("### Dismissals Against Spin")
             if spin_df.empty:
                 st.write("No data for Right-Handed Batsmen")
             else:
@@ -2817,14 +2817,14 @@ else:
             
             # Display each plot in the respective column
             with col1:
-                st.write("### Against Left-Handed Batsmen")
+                st.write("### Wickets Against Left-Handed Batsmen")
                 if lhb_data.empty:
                     st.write("No data for Left-Handed Batsmen")
                 else:
                     st.plotly_chart(create_pitch_map(lhb_data, 'LHB'), key="LHB")
             
             with col2:
-                st.write("### Against Right-Handed Batsmen")
+                st.write("### Wickets Against Right-Handed Batsmen")
                 if rhb_data.empty:
                     st.write("No data for Right-Handed Batsmen")
                 else:
